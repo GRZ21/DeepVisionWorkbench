@@ -52,9 +52,9 @@
 ## 🛠️ 技术栈 (Tech Stack)
 
 * **编程语言**：C++
-* **GUI 框架**：Qt (Widgets)
+* **GUI 框架**：Qt
 * **核心图表库**：[QCustomPlot](https://www.qcustomplot.com/)
-* **构建系统**：qmake / CMake
+* **构建系统**：CMake
 
 ---
 
@@ -63,7 +63,7 @@
 1. 克隆本仓库：
    ```bash
    git clone https://github.com/GRZ21/CSVResultAnalyzer.git
-2. 使用 Qt Creator 或者CLion打开项目文件CMakeLists.txt。
+2. 使用 Qt Creator 或者 CLion 打开项目文件CMakeLists.txt。
 
 3. 配置好你的 Qt 套件（推荐 Qt 6.x）。
 
