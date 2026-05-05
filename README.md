@@ -63,7 +63,11 @@
 1. 克隆本仓库：
    ```bash
    git clone https://github.com/GRZ21/CSVResultAnalyzer.git
+2. 使用 Qt Creator 或者CLion打开项目文件CMakeLists.txt。
 
+3. 配置好你的 Qt 套件（推荐 Qt 6.x）。
+
+4. 点击构建并运行即可
 ## 📄 开源协议 (License)
 
 本项目遵循 [MIT License](https://opensource.org/licenses/MIT) 开源协议。
