@@ -55,6 +55,7 @@ find_package(Qt6 REQUIRED COMPONENTS
         Gui
         Widgets
         PrintSupport
+        Sql
 )
 
 # ---------------- C++ 标准 ----------------
@@ -73,13 +74,24 @@ file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
 source_group(TREE ${CMAKE_SOURCE_DIR} FILES ${SRC_FILES})
 
 # ---------------- 可执行程序 ----------------
-add_executable(csvReader ${SRC_FILES}
+add_executable(csvReader
         src/widget/MainWindow.cpp
         src/widget/MainWindow.h
         src/widget/MainWindow.ui
         src/utils/qcustomplot.cpp
         src/utils/qcustomplot.h
-        main.cpp)
+        main.cpp
+        src/widget/CsvAnalyzeWidget.cpp
+        src/widget/CsvAnalyzeWidget.h
+        src/widget/CsvAnalyzeWidget.ui
+        src/widget/ExperimentRecordsWidget.cpp
+        src/widget/ExperimentRecordsWidget.h
+        src/widget/ExperimentRecordsWidget.ui
+        src/database/DatabaseManager.cpp
+        src/database/DatabaseManager.h
+        src/widget/ImportExperimentDialog.cpp
+        src/widget/ImportExperimentDialog.h
+        src/widget/ImportExperimentDialog.ui)
 
 # ---------------- 链接 Qt ----------------
 target_link_libraries(csvReader PRIVATE
@@ -87,11 +99,13 @@ target_link_libraries(csvReader PRIVATE
         Qt6::Gui
         Qt6::Widgets
         Qt6::PrintSupport
+        Qt6::Sql
 )
 
 # ---------------- include 路径 ----------------
 target_include_directories(csvReader PRIVATE
         ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/src/utils
         ${CMAKE_CURRENT_BINARY_DIR}
 )
 

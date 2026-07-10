@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ExperimentLibraryWidget</class>
+ <widget class="QWidget" name="ExperimentLibraryWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1240</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Experiment Library</string>
+  </property>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <property name="leftMargin">
+    <number>12</number>
+   </property>
+   <property name="topMargin">
+    <number>12</number>
+   </property>
+   <property name="rightMargin">
+    <number>12</number>
+   </property>
+   <property name="bottomMargin">
+    <number>6</number>
+   </property>
+   <item>
+    <layout class="QHBoxLayout" name="bodyLayout">
+     <item>
+      <widget class="QWidget" name="mainContentWidget" native="true">
+       <layout class="QVBoxLayout" name="contentLayout">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="topToolLayout">
+          <item>
+           <widget class="QLineEdit" name="editSearchExperiment">
+            <property name="minimumSize">
+             <size>
+              <width>360</width>
+              <height>32</height>
+             </size>
+            </property>
+            <property name="placeholderText">
+             <string>搜索实验名 / 备注 / 路径</string>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboSortExperiment">
+            <property name="minimumSize">
+             <size>
+              <width>130</width>
+              <height>32</height>
+             </size>
+            </property>
+            <item>
+             <property name="text">
+              <string>按更新时间</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>按创建时间</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>按mAP50-95</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>按实验名称</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboTagFilter">
+            <property name="minimumSize">
+             <size>
+              <width>110</width>
+              <height>32</height>
+             </size>
+            </property>
+            <item>
+             <property name="text">
+              <string>全部</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnRefreshRecord">
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>32</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>刷新</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnImportCurrentExperiment">
+            <property name="minimumSize">
+             <size>
+              <width>120</width>
+              <height>32</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>导入当前实验</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnExportRecord">
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>32</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>导出记录</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="topToolSpacer">
+            <property name="orientation">
+             <enum>Qt::Orientation::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QTableView" name="tableExperimentRecords">
+          <property name="minimumSize">
+           <size>
+            <width>760</width>
+            <height>440</height>
+           </size>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+          </property>
+          <property name="showGrid">
+           <bool>true</bool>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="cornerButtonEnabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="tableFooterLayout">
+          <item>
+           <widget class="QLabel" name="labelRecordCount">
+            <property name="text">
+             <string>共 0 条记录</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="tableFooterSpacer">
+            <property name="orientation">
+             <enum>Qt::Orientation::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnFirstPage">
+            <property name="text">
+             <string>|&lt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnPrevPage">
+            <property name="text">
+             <string>&lt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="spinCurrentPage">
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="value">
+             <number>1</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnNextPage">
+            <property name="text">
+             <string>&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnLastPage">
+            <property name="text">
+             <string>&gt;|</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboPageSize">
+            <item>
+             <property name="text">
+              <string>20 条/页</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>50 条/页</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>100 条/页</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="bottomButtonLayout">
+          <item>
+           <widget class="QPushButton" name="btnOpenExperiment">
+            <property name="minimumSize">
+             <size>
+              <width>110</width>
+              <height>34</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>打开实验</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnDeleteRecord">
+            <property name="minimumSize">
+             <size>
+              <width>110</width>
+              <height>34</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>删除记录</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnEditNote">
+            <property name="minimumSize">
+             <size>
+              <width>110</width>
+              <height>34</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>修改备注</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnAddToCompare">
+            <property name="minimumSize">
+             <size>
+              <width>110</width>
+              <height>34</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>加入对比</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="bottomButtonSpacer">
+            <property name="orientation">
+             <enum>Qt::Orientation::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QWidget" name="rightDetailWidget" native="true">
+       <property name="minimumSize">
+        <size>
+         <width>260</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>340</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <layout class="QVBoxLayout" name="rightDetailLayout">
+        <property name="leftMargin">
+         <number>12</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QGroupBox" name="groupExperimentDetail">
+          <property name="title">
+           <string>实验详情</string>
+          </property>
+          <layout class="QFormLayout" name="detailFormLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="labelDetailNameTitle">
+             <property name="text">
+              <string>实验名称:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="editDetailName">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="labelDetailPathTitle">
+             <property name="text">
+              <string>CSV路径:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="editDetailCsvPath">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="labelBestEpochTitle">
+             <property name="text">
+              <string>最佳Epoch:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="editBestEpoch">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="labelBestMapTitle">
+             <property name="text">
+              <string>最佳mAP50-95:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="editBestMap5095">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="labelCreateTimeTitle">
+             <property name="text">
+              <string>创建时间:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLineEdit" name="editCreateTime">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="labelUpdateTimeTitle">
+             <property name="text">
+              <string>更新时间:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QLineEdit" name="editUpdateTime">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLabel" name="labelTagTitle">
+             <property name="text">
+              <string>标签:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <widget class="QLineEdit" name="editTag">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QLabel" name="labelNoteTitle">
+             <property name="text">
+              <string>备注:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="1">
+            <widget class="QPlainTextEdit" name="plainNote">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBestMetrics">
+          <property name="title">
+           <string>关键指标（最佳）</string>
+          </property>
+          <layout class="QFormLayout" name="metricFormLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="labelMetricMap50">
+             <property name="text">
+              <string>mAP50</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="valueMetricMap50">
+             <property name="text">
+              <string>--</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="labelMetricMap5095">
+             <property name="text">
+              <string>mAP50-95</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="valueMetricMap5095">
+             <property name="text">
+              <string>--</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="labelMetricPrecision">
+             <property name="text">
+              <string>Precision</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="valueMetricPrecision">
+             <property name="text">
+              <string>--</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="labelMetricRecall">
+             <property name="text">
+              <string>Recall</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLabel" name="valueMetricRecall">
+             <property name="text">
+              <string>--</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <spacer name="rightBottomSpacer">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>80</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QFrame" name="bottomStatusFrame">
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Plain</enum>
+     </property>
+     <layout class="QHBoxLayout" name="bottomStatusLayout">
+      <property name="leftMargin">
+       <number>8</number>
+      </property>
+      <property name="topMargin">
+       <number>3</number>
+      </property>
+      <property name="rightMargin">
+       <number>8</number>
+      </property>
+      <property name="bottomMargin">
+       <number>3</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="labelDatabaseStatus">
+        <property name="text">
+         <string>数据库：SQLite</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="lineStatus1">
+        <property name="frameShape">
+         <enum>QFrame::Shape::VLine</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Shadow::Sunken</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="labelRecordStatus">
+        <property name="text">
+         <string>记录数：0</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="lineStatus2">
+        <property name="frameShape">
+         <enum>QFrame::Shape::VLine</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Shadow::Sunken</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="labelConnectStatus">
+        <property name="text">
+         <string>状态：未连接</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="bottomStatusSpacer">
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
