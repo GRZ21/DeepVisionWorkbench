@@ -115,15 +115,47 @@ bool DatabaseManager::insertExperiment(const ExperimentRecord &record) {
     return true;
 }
 
-bool DatabaseManager::selectAllExperiments() {
+bool DatabaseManager::updateExperiment(int id, const ExperimentRecord &record) {
     QSqlQuery query(db);
-    bool ok = query.exec("SELECT * FROM experiments");
-    if (ok) {
-        qDebug() << "Selected experiments successfully";
-        return true;
+    query.prepare("UPDATE experiments "
+                  "SET name = :name, params = :params, GFLOPs = :GFLOPs, note = :note "
+                  "WHERE id = :id");
+    query.bindValue(":id", id);
+    query.bindValue(":name", record.name);
+    query.bindValue(":params", record.params);
+    query.bindValue(":GFLOPs", record.GFLOPs);
+    query.bindValue(":note", record.note);
+    if (!query.exec()) {
+        qDebug() << "Failed to update experiment:" << query.lastError().text();
+        return false;
     }
-    qDebug() << "Failed to select experiments";
-    return false;
+    return true;
 }
 
+int DatabaseManager::experimentCount(int currentPage, int pageSize) {
+    Q_UNUSED(currentPage);
+    QSqlQuery query(db);
+    if (!query.exec("SELECT COUNT(*) FROM experiments")) {
+        qDebug() << "Failed to count experiments:" << query.lastError().text();
+        return false;
+    }
 
+    int counts = 0;
+    if (query.next())
+        counts = query.value(0).toInt();
+
+    int totalPages = (counts + pageSize - 1) / pageSize;
+    return totalPages;
+}
+
+bool DatabaseManager::sortExperiment(const QString& sortKey, const QString& sortType) {
+    QSqlQuery query(db);
+    query.prepare("SELECT * FROM experiments ORDER BY :key :type");
+    query.bindValue(":type", sortType);
+    query.bindValue(":key", sortKey);
+    if (!query.exec()) {
+        qDebug() << "Failed to sort experiments:" << query.lastError().text();
+        return false;
+    }
+    return true;
+}

@@ -91,7 +91,11 @@ add_executable(csvReader
         src/database/DatabaseManager.h
         src/widget/ImportExperimentDialog.cpp
         src/widget/ImportExperimentDialog.h
-        src/widget/ImportExperimentDialog.ui)
+        src/widget/ImportExperimentDialog.ui
+        src/resource/res.qrc
+)
+
+add_subdirectory(src/include/QXlsx)
 
 # ---------------- 链接 Qt ----------------
 target_link_libraries(csvReader PRIVATE
@@ -100,6 +104,7 @@ target_link_libraries(csvReader PRIVATE
         Qt6::Widgets
         Qt6::PrintSupport
         Qt6::Sql
+        QXlsx::QXlsx
 )
 
 # ---------------- include 路径 ----------------

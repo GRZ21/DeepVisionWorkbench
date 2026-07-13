@@ -40,6 +40,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->action_Toggle_File_Tree->setChecked(true);
     ui->action_Toggle_Data_Table->setChecked(true);
     ui->action_Toggle_Properties->setChecked(true);
+
+    ui->statusbar->hide();
 }
 
 
