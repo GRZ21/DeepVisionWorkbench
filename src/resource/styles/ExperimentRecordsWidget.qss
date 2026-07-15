@@ -1,0 +1,300 @@
+/* ExperimentRecordsWidget.qss */
+
+#ExperimentRecordsWidget {
+    background-color: #f5f7fa;
+    color: #263238;
+    font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
+    font-size: 13px;
+}
+
+#mainContentWidget,
+#rightDetailWidget {
+    background-color: transparent;
+}
+
+#splitter::handle {
+    background-color: #d9e0e7;
+    width: 2px;
+    margin: 4px 2px;
+}
+
+#splitter::handle:hover {
+    background-color: #7aa7d9;
+}
+
+QLineEdit,
+QComboBox,
+QPlainTextEdit {
+    background-color: #ffffff;
+    border: 1px solid #cfd8e3;
+    border-radius: 5px;
+    padding: 4px 8px;
+    selection-background-color: #4c8ed9;
+    selection-color: #ffffff;
+}
+
+QLineEdit:hover,
+QComboBox:hover,
+QPlainTextEdit:hover {
+    border-color: #9eb7d0;
+}
+
+QLineEdit:focus,
+QComboBox:focus,
+QPlainTextEdit:focus {
+    border: 1px solid #4c8ed9;
+}
+
+QLineEdit[readOnly="true"],
+QPlainTextEdit[readOnly="true"] {
+    background-color: #f1f3f5;
+    color: #66717d;
+    border-color: #d9dee4;
+}
+
+QComboBox {
+    padding: 3px 22px 3px 8px;
+}
+
+QComboBox::drop-down {
+    border: none;
+    width: 22px;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid #cfd8e3;
+    selection-background-color: #e4f0fc;
+    selection-color: #1f2d3d;
+    outline: none;
+}
+
+ExperimentRecordsWidget QPushButton {
+    min-height: 30px;
+    background-color: #ffffff;
+    color: #263238;
+    border: 1px solid #c7d1dc;
+    border-radius: 5px;
+    padding: 4px 8px;
+}
+
+QPushButton:hover {
+    background-color: #eef5fc;
+    border-color: #7aa7d9;
+}
+
+QPushButton:pressed {
+    background-color: #dceaf8;
+}
+
+QPushButton:disabled {
+    background-color: #f1f3f5;
+    color: #9aa3ab;
+    border-color: #dfe4e8;
+}
+
+#btnImportCurrentExperiment,
+#btnSubmit {
+    background-color: #397dcc;
+    color: #ffffff;
+    border-color: #397dcc;
+}
+
+#btnImportCurrentExperiment:hover,
+#btnSubmit:hover {
+    background-color: #2f70bc;
+    border-color: #2f70bc;
+}
+
+#btnImportCurrentExperiment:pressed,
+#btnSubmit:pressed {
+    background-color: #285f9f;
+}
+
+#btnDeleteRecord {
+    color: #c23b3b;
+    border-color: #e2b3b3;
+    background-color: #fffafa;
+}
+
+#btnDeleteRecord:hover {
+    color: #ffffff;
+    background-color: #c94c4c;
+    border-color: #c94c4c;
+}
+
+#btnRevert {
+    background-color: #fff8e8;
+    color: #8a6116;
+    border-color: #e6c779;
+}
+
+#btnRevert:hover {
+    background-color: #f7e8bd;
+}
+
+#tableExperimentRecords {
+    background-color: #ffffff;
+    alternate-background-color: #f7f9fb;
+    border: 1px solid #d4dce5;
+    border-radius: 5px;
+    gridline-color: #e5eaf0;
+    selection-background-color: #d9eafa;
+    selection-color: #1f2d3d;
+    outline: none;
+}
+
+#tableExperimentRecords::item {
+    padding: 5px;
+    border: none;
+}
+
+#tableExperimentRecords::item:selected {
+    background-color: #d9eafa;
+    color: #1f2d3d;
+}
+
+QHeaderView::section {
+    background-color: #edf2f7;
+    color: #34495e;
+    border: none;
+    border-right: 1px solid #d6dee7;
+    border-bottom: 1px solid #cbd5df;
+    padding: 6px 8px;
+    font-weight: 600;
+}
+
+QHeaderView::section:hover {
+    background-color: #e2ebf4;
+}
+
+QTableCornerButton::section {
+    background-color: #edf2f7;
+    border: none;
+}
+
+#groupExperimentDetail {
+    background-color: #ffffff;
+    border: 1px solid #d4dce5;
+    border-radius: 7px;
+    margin-top: 10px;
+    padding-top: 8px;
+}
+
+#groupExperimentDetail::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 12px;
+    padding: 0 6px;
+    color: #2f5f91;
+    background-color: #ffffff;
+    font-weight: 600;
+}
+
+#groupExperimentDetail QLabel {
+    color: #4b5563;
+}
+
+#bottomStatusFrame {
+    background-color: #ffffff;
+    border: 1px solid #d7dee6;
+    border-radius: 4px;
+}
+
+#bottomStatusFrame QLabel {
+    color: #59636e;
+}
+
+#iconSearch,
+#iconDatabaseLabel,
+#iconDatabaseStatus {
+    background-color: transparent;
+    border: none;
+}
+
+QScrollBar:vertical {
+    background-color: #f2f4f7;
+    width: 10px;
+    margin: 0;
+}
+
+QScrollBar::handle:vertical {
+    background-color: #bcc7d3;
+    border-radius: 5px;
+    min-height: 28px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background-color: #9eacba;
+}
+
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {
+    height: 0;
+}
+
+QScrollBar:horizontal {
+    background-color: #f2f4f7;
+    height: 10px;
+    margin: 0;
+}
+
+QScrollBar::handle:horizontal {
+    background-color: #bcc7d3;
+    border-radius: 5px;
+    min-width: 28px;
+}
+
+QScrollBar::handle:horizontal:hover {
+    background-color: #9eacba;
+}
+
+QScrollBar::add-line:horizontal,
+QScrollBar::sub-line:horizontal {
+    width: 0;
+}
+
+QToolTip {
+    background-color: #263238;
+    color: #ffffff;
+    border: none;
+    padding: 5px;
+}
+
+
+#editSearchExperiment {
+    min-width: 100px;
+    min-height: 30px;
+    max-height: 30px;
+}
+
+#comboSortExperiment {
+    min-width: 100px;
+    min-height: 30px;
+    max-height: 30px;
+}
+
+#comboBoxSortType {
+    min-width: 70px;
+    min-height: 30px;
+    max-height: 30px;
+}
+
+#btnRefreshRecord {
+    min-width: 70px;
+    min-height: 30px;
+    max-height: 30px;
+}
+
+#btnImportCurrentExperiment,
+#btnDeleteRecord {
+    min-width: 100px;
+    min-height: 30px;
+    max-height: 30px;
+}
+
+#btnExportRecord {
+    min-width: 50px;
+    min-height: 30px;
+    max-height: 30px;
+}
