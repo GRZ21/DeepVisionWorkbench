@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # ---------------- 基础 ----------------
-get_filename_component(PROJECT_FOLDER_NAME "${CMAKE_CURRENT_SOURCE_DIR}" NAME)
-set(APP_NAME ${PROJECT_FOLDER_NAME})
+set(APP_NAME DeepVisionWorkbench)
 
 project(${APP_NAME}
         VERSION 1.0.0
@@ -55,6 +54,7 @@ find_package(Qt6 REQUIRED COMPONENTS
         Gui
         Widgets
         PrintSupport
+        Sql
 )
 
 # ---------------- C++ 标准 ----------------
@@ -73,30 +73,48 @@ file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
 source_group(TREE ${CMAKE_SOURCE_DIR} FILES ${SRC_FILES})
 
 # ---------------- 可执行程序 ----------------
-add_executable(csvReader ${SRC_FILES}
+add_executable(${APP_NAME}
         src/widget/MainWindow.cpp
         src/widget/MainWindow.h
         src/widget/MainWindow.ui
         src/utils/qcustomplot.cpp
         src/utils/qcustomplot.h
-        main.cpp)
+        main.cpp
+        src/widget/CsvAnalyzeWidget.cpp
+        src/widget/CsvAnalyzeWidget.h
+        src/widget/CsvAnalyzeWidget.ui
+        src/widget/ExperimentRecordsWidget.cpp
+        src/widget/ExperimentRecordsWidget.h
+        src/widget/ExperimentRecordsWidget.ui
+        src/database/DatabaseManager.cpp
+        src/database/DatabaseManager.h
+        src/widget/ImportExperimentDialog.cpp
+        src/widget/ImportExperimentDialog.h
+        src/widget/ImportExperimentDialog.ui
+        src/resource/res.qrc
+)
+
+add_subdirectory(src/include/QXlsx)
 
 # ---------------- 链接 Qt ----------------
-target_link_libraries(csvReader PRIVATE
+target_link_libraries(${APP_NAME} PRIVATE
         Qt6::Core
         Qt6::Gui
         Qt6::Widgets
         Qt6::PrintSupport
+        Qt6::Sql
+        QXlsx::QXlsx
 )
 
 # ---------------- include 路径 ----------------
-target_include_directories(csvReader PRIVATE
+target_include_directories(${APP_NAME} PRIVATE
         ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/src/utils
         ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 # ---------------- 编译选项 ----------------
-target_compile_options(csvReader PRIVATE
+target_compile_options(${APP_NAME} PRIVATE
         $<$<CXX_COMPILER_ID:MSVC>:/W4 /permissive->
         $<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:
         -Wall -Wextra -Wpedantic
@@ -105,19 +123,19 @@ target_compile_options(csvReader PRIVATE
 
 # ---------------- 平台配置 ----------------
 if (WIN32)
-    target_compile_definitions(csvReader PRIVATE
+    target_compile_definitions(${APP_NAME} PRIVATE
             WIN32_LEAN_AND_MEAN
             _WIN32_WINNT=0x0A00
     )
 
     # Debug有控制台，Release无控制台
-    set_target_properties(csvReader PROPERTIES
+    set_target_properties(${APP_NAME} PROPERTIES
             WIN32_EXECUTABLE $<CONFIG:Release>
     )
 endif ()
 
 # ---------------- 构建信息注入 ----------------
-target_compile_definitions(csvReader PRIVATE
+target_compile_definitions(${APP_NAME} PRIVATE
         BUILD_GIT_HASH="${GIT_HASH}"
         BUILD_GIT_BRANCH="${GIT_BRANCH}"
         BUILD_TIMESTAMP="${BUILD_TIMESTAMP}"

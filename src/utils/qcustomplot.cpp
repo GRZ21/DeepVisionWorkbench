@@ -11331,7 +11331,7 @@ bool QCPSelectionDecorator::registerWithPlottable(QCPAbstractPlottable *plottabl
   of this plottable inside \a rect, next to the plottable name.
   
   The passed \a painter has its cliprect set to \a rect, so painting outside of \a rect won't
-  appear outside the legend icon border.
+  appear outside the legend icons border.
 */
 
 /*! \fn QCPRange QCPAbstractPlottable::getKeyRange(bool &foundRange, QCP::SignDomain inSignDomain) const = 0
@@ -18893,10 +18893,10 @@ void QCPAbstractLegendItem::deselectEvent(bool *selectionStateChanged)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*! \class QCPPlottableLegendItem
-  \brief A legend item representing a plottable with an icon and the plottable name.
+  \brief A legend item representing a plottable with an icons and the plottable name.
   
-  This is the standard legend item for plottables. It displays an icon of the plottable next to the
-  plottable name. The icon is drawn by the respective plottable itself (\ref
+  This is the standard legend item for plottables. It displays an icons of the plottable next to the
+  plottable name. The icons is drawn by the respective plottable itself (\ref
   QCPAbstractPlottable::drawLegendIcon), and tries to give an intuitive symbol for the plottable.
   For example, the QCPGraph draws a centered horizontal line and/or a single scatter point in the
   middle.
@@ -18932,7 +18932,7 @@ QCPPlottableLegendItem::QCPPlottableLegendItem(QCPLegend *parent, QCPAbstractPlo
 
 /*! \internal
   
-  Returns the pen that shall be used to draw the icon border, taking into account the selection
+  Returns the pen that shall be used to draw the icons border, taking into account the selection
   state of this item.
 */
 QPen QCPPlottableLegendItem::getIconBorderPen() const
@@ -18974,14 +18974,14 @@ void QCPPlottableLegendItem::draw(QCPPainter *painter)
   QSize iconSize = mParentLegend->iconSize();
   QRect textRect = painter->fontMetrics().boundingRect(0, 0, 0, iconSize.height(), Qt::TextDontClip, mPlottable->name());
   QRect iconRect(mRect.topLeft(), iconSize);
-  int textHeight = qMax(textRect.height(), iconSize.height());  // if text has smaller height than icon, center text vertically in icon height, else align tops
+  int textHeight = qMax(textRect.height(), iconSize.height());  // if text has smaller height than icons, center text vertically in icons height, else align tops
   painter->drawText(mRect.x()+iconSize.width()+mParentLegend->iconTextPadding(), mRect.y(), textRect.width(), textHeight, Qt::TextDontClip, mPlottable->name());
-  // draw icon:
+  // draw icons:
   painter->save();
   painter->setClipRect(iconRect, Qt::IntersectClip);
   mPlottable->drawLegendIcon(painter, iconRect);
   painter->restore();
-  // draw icon border:
+  // draw icons border:
   if (getIconBorderPen().style() != Qt::NoPen)
   {
     painter->setPen(getIconBorderPen());
@@ -18994,7 +18994,7 @@ void QCPPlottableLegendItem::draw(QCPPainter *painter)
 
 /*! \internal
   
-  Calculates and returns the size of this item. This includes the icon, the text and the padding in
+  Calculates and returns the size of this item. This includes the icons, the text and the padding in
   between.
   
   \seebaseclassmethod
@@ -19022,7 +19022,7 @@ QSize QCPPlottableLegendItem::minimumOuterSizeHint() const
 /*! \class QCPLegend
   \brief Manages a legend inside a QCustomPlot.
 
-  A legend is a small box somewhere in the plot which lists plottables with their name and icon.
+  A legend is a small box somewhere in the plot which lists plottables with their name and icons.
 
   A legend is populated with legend items by calling \ref QCPAbstractPlottable::addToLegend on the
   plottable, for which a legend item shall be created. In the case of the main legend (\ref
@@ -19178,7 +19178,7 @@ void QCPLegend::setTextColor(const QColor &color)
 }
 
 /*!
-  Sets the size of legend icons. Legend items that draw an icon (e.g. a visual
+  Sets the size of legend icons. Legend items that draw an icons (e.g. a visual
   representation of the graph) will use this size by default.
 */
 void QCPLegend::setIconSize(const QSize &size)
@@ -19195,8 +19195,8 @@ void QCPLegend::setIconSize(int width, int height)
 }
 
 /*!
-  Sets the horizontal space in pixels between the legend icon and the text next to it.
-  Legend items that draw an icon (e.g. a visual representation of the graph) and text (e.g. the
+  Sets the horizontal space in pixels between the legend icons and the text next to it.
+  Legend items that draw an icons (e.g. a visual representation of the graph) and text (e.g. the
   name of the graph) will use this space by default.
 */
 void QCPLegend::setIconTextPadding(int padding)
@@ -19205,8 +19205,8 @@ void QCPLegend::setIconTextPadding(int padding)
 }
 
 /*!
-  Sets the pen used to draw a border around each legend icon. Legend items that draw an
-  icon (e.g. a visual representation of the graph) will use this pen by default.
+  Sets the pen used to draw a border around each legend icons. Legend items that draw an
+  icons (e.g. a visual representation of the graph) will use this pen by default.
   
   If no border is wanted, set this to \a Qt::NoPen.
 */
@@ -19292,7 +19292,7 @@ void QCPLegend::setSelectedBorderPen(const QPen &pen)
 }
 
 /*!
-  Sets the pen legend items will use to draw their icon borders, when they are selected.
+  Sets the pen legend items will use to draw their icons borders, when they are selected.
 
   \see setSelectedParts, setSelectableParts, setSelectedFont
 */
@@ -21210,7 +21210,7 @@ void QCPGraph::drawLegendIcon(QCPPainter *painter, const QRectF &rect) const
   if (!mScatterStyle.isNone())
   {
     applyScattersAntialiasingHint(painter);
-    // scale scatter pixmap if it's too large to fit in legend icon rect:
+    // scale scatter pixmap if it's too large to fit in legend icons rect:
     if (mScatterStyle.shape() == QCPScatterStyle::ssPixmap && (mScatterStyle.pixmap().size().width() > rect.width() || mScatterStyle.pixmap().size().height() > rect.height()))
     {
       QCPScatterStyle scaledStyle(mScatterStyle);
@@ -22990,7 +22990,7 @@ void QCPCurve::drawLegendIcon(QCPPainter *painter, const QRectF &rect) const
   if (!mScatterStyle.isNone())
   {
     applyScattersAntialiasingHint(painter);
-    // scale scatter pixmap if it's too large to fit in legend icon rect:
+    // scale scatter pixmap if it's too large to fit in legend icons rect:
     if (mScatterStyle.shape() == QCPScatterStyle::ssPixmap && (mScatterStyle.pixmap().size().width() > rect.width() || mScatterStyle.pixmap().size().height() > rect.height()))
     {
       QCPScatterStyle scaledStyle(mScatterStyle);
@@ -26635,7 +26635,7 @@ void QCPColorMap::rescaleDataRange(bool recalculateDataBounds)
 }
 
 /*!
-  Takes the current appearance of the color map and updates the legend icon, which is used to
+  Takes the current appearance of the color map and updates the legend icons, which is used to
   represent this color map in the legend (see \ref QCPLegend).
   
   The \a transformMode specifies whether the rescaling is done by a faster, low quality image
@@ -26643,8 +26643,8 @@ void QCPColorMap::rescaleDataRange(bool recalculateDataBounds)
   (Qt::SmoothTransformation).
   
   The current color map appearance is scaled down to \a thumbSize. Ideally, this should be equal to
-  the size of the legend icon (see \ref QCPLegend::setIconSize). If it isn't exactly the configured
-  legend icon size, the thumb will be rescaled during drawing of the legend item.
+  the size of the legend icons (see \ref QCPLegend::setIconSize). If it isn't exactly the configured
+  legend icons size, the thumb will be rescaled during drawing of the legend item.
   
   \see setDataRange
 */
@@ -27479,19 +27479,19 @@ void QCPFinancial::draw(QCPPainter *painter)
 /* inherits documentation from base class */
 void QCPFinancial::drawLegendIcon(QCPPainter *painter, const QRectF &rect) const
 {
-  painter->setAntialiasing(false); // legend icon especially of csCandlestick looks better without antialiasing
+  painter->setAntialiasing(false); // legend icons especially of csCandlestick looks better without antialiasing
   if (mChartStyle == csOhlc)
   {
     if (mTwoColored)
     {
-      // draw upper left half icon with positive color:
+      // draw upper left half icons with positive color:
       painter->setBrush(mBrushPositive);
       painter->setPen(mPenPositive);
       painter->setClipRegion(QRegion(QPolygon() << rect.bottomLeft().toPoint() << rect.topRight().toPoint() << rect.topLeft().toPoint()));
       painter->drawLine(QLineF(0, rect.height()*0.5, rect.width(), rect.height()*0.5).translated(rect.topLeft()));
       painter->drawLine(QLineF(rect.width()*0.2, rect.height()*0.3, rect.width()*0.2, rect.height()*0.5).translated(rect.topLeft()));
       painter->drawLine(QLineF(rect.width()*0.8, rect.height()*0.5, rect.width()*0.8, rect.height()*0.7).translated(rect.topLeft()));
-      // draw bottom right half icon with negative color:
+      // draw bottom right half icons with negative color:
       painter->setBrush(mBrushNegative);
       painter->setPen(mPenNegative);
       painter->setClipRegion(QRegion(QPolygon() << rect.bottomLeft().toPoint() << rect.topRight().toPoint() << rect.bottomRight().toPoint()));
@@ -27510,14 +27510,14 @@ void QCPFinancial::drawLegendIcon(QCPPainter *painter, const QRectF &rect) const
   {
     if (mTwoColored)
     {
-      // draw upper left half icon with positive color:
+      // draw upper left half icons with positive color:
       painter->setBrush(mBrushPositive);
       painter->setPen(mPenPositive);
       painter->setClipRegion(QRegion(QPolygon() << rect.bottomLeft().toPoint() << rect.topRight().toPoint() << rect.topLeft().toPoint()));
       painter->drawLine(QLineF(0, rect.height()*0.5, rect.width()*0.25, rect.height()*0.5).translated(rect.topLeft()));
       painter->drawLine(QLineF(rect.width()*0.75, rect.height()*0.5, rect.width(), rect.height()*0.5).translated(rect.topLeft()));
       painter->drawRect(QRectF(rect.width()*0.25, rect.height()*0.25, rect.width()*0.5, rect.height()*0.5).translated(rect.topLeft()));
-      // draw bottom right half icon with negative color:
+      // draw bottom right half icons with negative color:
       painter->setBrush(mBrushNegative);
       painter->setPen(mPenNegative);
       painter->setClipRegion(QRegion(QPolygon() << rect.bottomLeft().toPoint() << rect.topRight().toPoint() << rect.bottomRight().toPoint()));
@@ -34374,14 +34374,14 @@ void QCPPolarLegendItem::draw(QCPPainter *painter)
   QSizeF iconSize = mParentLegend->iconSize();
   QRectF textRect = painter->fontMetrics().boundingRect(0, 0, 0, iconSize.height(), Qt::TextDontClip, mPolarGraph->name());
   QRectF iconRect(mRect.topLeft(), iconSize);
-  int textHeight = qMax(textRect.height(), iconSize.height());  // if text has smaller height than icon, center text vertically in icon height, else align tops
+  int textHeight = qMax(textRect.height(), iconSize.height());  // if text has smaller height than icons, center text vertically in icons height, else align tops
   painter->drawText(mRect.x()+iconSize.width()+mParentLegend->iconTextPadding(), mRect.y(), textRect.width(), textHeight, Qt::TextDontClip, mPolarGraph->name());
-  // draw icon:
+  // draw icons:
   painter->save();
   painter->setClipRect(iconRect, Qt::IntersectClip);
   mPolarGraph->drawLegendIcon(painter, iconRect);
   painter->restore();
-  // draw icon border:
+  // draw icons border:
   if (getIconBorderPen().style() != Qt::NoPen)
   {
     painter->setPen(getIconBorderPen());
@@ -35159,7 +35159,7 @@ void QCPPolarGraph::drawLegendIcon(QCPPainter *painter, const QRectF &rect) cons
   if (!mScatterStyle.isNone())
   {
     applyScattersAntialiasingHint(painter);
-    // scale scatter pixmap if it's too large to fit in legend icon rect:
+    // scale scatter pixmap if it's too large to fit in legend icons rect:
     if (mScatterStyle.shape() == QCPScatterStyle::ssPixmap && (mScatterStyle.pixmap().size().width() > rect.width() || mScatterStyle.pixmap().size().height() > rect.height()))
     {
       QCPScatterStyle scaledStyle(mScatterStyle);

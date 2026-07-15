@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CsvAnalyzeWidget</class>
+ <widget class="QWidget" name="CsvAnalyzeWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1176</width>
+    <height>795</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>CsvAnalyzeWidget</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QSplitter" name="Hsplitter">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+     <widget class="QTreeWidget" name="treeWidget">
+      <property name="headerHidden">
+       <bool>false</bool>
+      </property>
+      <column>
+       <property name="text">
+        <string>数据管理</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QSplitter" name="Vsplitter">
+      <property name="orientation">
+       <enum>Qt::Orientation::Vertical</enum>
+      </property>
+      <widget class="QCustomPlot" name="customPlot" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+      <widget class="QTableView" name="tableView"/>
+     </widget>
+     <widget class="QWidget" name="rightPanelWidget" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QScrollArea" name="scrollArea">
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>272</width>
+            <height>757</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QGroupBox" name="groupCurveProps">
+             <property name="title">
+              <string>选中曲线属性</string>
+             </property>
+             <layout class="QVBoxLayout" name="curvePropsLayout">
+              <item>
+               <layout class="QFormLayout" name="formLayout">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="labelName">
+                  <property name="text">
+                   <string>名称:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLineEdit" name="editName"/>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="labelColor">
+                  <property name="text">
+                   <string>颜色:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QPushButton" name="btnColor">
+                  <property name="text">
+                   <string>选择</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="labelAlpha">
+                  <property name="text">
+                   <string>透明度(%):</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QSpinBox" name="spinAlpha">
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="value">
+                   <number>100</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="labelWidth">
+                  <property name="text">
+                   <string>线宽:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QSpinBox" name="spinWidth">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>10</number>
+                  </property>
+                  <property name="value">
+                   <number>2</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="labelStyle">
+                  <property name="text">
+                   <string>线型:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="QComboBox" name="comboStyle">
+                  <item>
+                   <property name="text">
+                    <string>实线</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>虚线</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="5" column="0">
+                 <widget class="QLabel" name="labelScatter">
+                  <property name="text">
+                   <string>散点样式:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="1">
+                 <widget class="QComboBox" name="comboScatter">
+                  <item>
+                   <property name="text">
+                    <string>无 (默认)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>圆圈 (Circle)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>方块 (Square)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>菱形 (Diamond)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>三角形 (Triangle)</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="6" column="0">
+                 <widget class="QLabel" name="labelScatterSize">
+                  <property name="text">
+                   <string>散点大小:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="QSpinBox" name="spinScatterSize">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>20</number>
+                  </property>
+                  <property name="value">
+                   <number>5</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layerLayout">
+                <item>
+                 <widget class="QLabel" name="labelLayer">
+                  <property name="text">
+                   <string>图层顺序:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btnBringTop">
+                  <property name="text">
+                   <string>置顶</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btnSendBottom">
+                  <property name="text">
+                   <string>置底</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="checkSmooth">
+                <property name="text">
+                 <string>启用平滑 (EMA)</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="smoothLayout">
+                <item>
+                 <widget class="QLabel" name="labelSmoothValue">
+                  <property name="text">
+                   <string>平滑度:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSlider" name="sliderSmooth">
+                  <property name="maximum">
+                   <number>99</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="groupStats">
+                <property name="title">
+                 <string>统计信息</string>
+                </property>
+                <layout class="QGridLayout" name="statsLayout">
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="labelMaxTitle">
+                   <property name="text">
+                    <string>最大值:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QLabel" name="labelMaxValue">
+                   <property name="text">
+                    <string>--</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="labelMinTitle">
+                   <property name="text">
+                    <string>最小值:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QLabel" name="labelMinValue">
+                   <property name="text">
+                    <string>--</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="labelFinalTitle">
+                   <property name="text">
+                    <string>最终值:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QLabel" name="labelFinalValue">
+                   <property name="text">
+                    <string>--</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupGlobalSettings">
+             <property name="title">
+              <string>图表全局设置</string>
+             </property>
+             <layout class="QVBoxLayout" name="globalLayout">
+              <item>
+               <layout class="QFormLayout" name="globalFormLayout">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="labelGrid">
+                  <property name="text">
+                   <string>背景网格:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QComboBox" name="comboGrid">
+                  <item>
+                   <property name="text">
+                    <string>水平虚线 (论文标准)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>全网格</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>无网格</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="labelLegend">
+                  <property name="text">
+                   <string>图例位置:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QComboBox" name="comboLegend">
+                  <property name="currentText">
+                   <string>右上角</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>右上角</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>右下角</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>隐藏图例</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="labelFont">
+                  <property name="text">
+                   <string>全局字体:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QFontComboBox" name="comboFont">
+                  <property name="currentFont">
+                   <font>
+                    <family>Arial</family>
+                   </font>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="labelFontSize">
+                  <property name="text">
+                   <string>字号与样式:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <layout class="QHBoxLayout" name="fontStyleLayout">
+                  <item>
+                   <widget class="QSpinBox" name="spinFontSize">
+                    <property name="minimum">
+                     <number>6</number>
+                    </property>
+                    <property name="maximum">
+                     <number>36</number>
+                    </property>
+                    <property name="value">
+                     <number>12</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkFontBold">
+                    <property name="text">
+                     <string>加粗</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="labelXTitle">
+                  <property name="text">
+                   <string>X轴标题:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="QLineEdit" name="editXTitle">
+                  <property name="text">
+                   <string>Epoch</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="0">
+                 <widget class="QLabel" name="labelYTitle">
+                  <property name="text">
+                   <string>Y轴标题:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="1">
+                 <widget class="QLineEdit" name="editYTitle">
+                  <property name="text">
+                   <string>Value</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="0">
+                 <widget class="QLabel" name="labelExportRatio">
+                  <property name="text">
+                   <string>导出比例:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="QComboBox" name="comboExportRatio">
+                  <item>
+                   <property name="text">
+                    <string>0: 保持当前窗口比例</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>1: 论文单栏排版 (4:3)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>2: 论文双栏跨版 (2:1)</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btnResetZoom">
+                <property name="text">
+                 <string>恢复默认视图 (重置缩放)</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btnExportImg">
+                <property name="text">
+                 <string>导出论文插图</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>63</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

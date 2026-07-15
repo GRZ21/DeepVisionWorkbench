@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <!-- 例如：<file>icons/app.png</file> -->
+        <file>icons/sqlite.svg</file>
+        <file>icons/status.svg</file>
+        <file>icons/search.svg</file>
+        <file>styles/ExperimentRecordsWidget.qss</file>
+        <file>styles/CsvAnalyzeWidget.qss</file>
+        <file>styles/ImportExperimentDialog.qss</file>
+        <file>styles/MainWindow.qss</file>
+    </qresource>
+</RCC>
