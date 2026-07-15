@@ -63,6 +63,7 @@ public slots:
     void removeAllFiles();
     void deleteCsv();
     void exportChart();
+    void restoreLayout();
 
     void setFileTreeVisible(bool checked);
     void setDataTableVisible(bool checked);

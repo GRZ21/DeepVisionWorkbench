@@ -52,9 +52,16 @@
     <property name="title">
      <string>文件(&amp;F)</string>
     </property>
+    <widget class="QMenu" name="menu_S">
+     <property name="title">
+      <string>导出(S)</string>
+     </property>
+     <addaction name="action_Export_Plot"/>
+     <addaction name="action_Export_Xlsx"/>
+    </widget>
     <addaction name="actionOpen"/>
     <addaction name="actionOpenDir"/>
-    <addaction name="actionExport"/>
+    <addaction name="menu_S"/>
     <addaction name="action_Q"/>
    </widget>
    <widget class="QMenu" name="menu_V">
@@ -72,6 +79,8 @@
     <addaction name="action_Toggle_File_Tree"/>
     <addaction name="action_Toggle_Data_Table"/>
     <addaction name="action_Toggle_Properties"/>
+    <addaction name="action_Restore_Layout"/>
+    <addaction name="action_FullScreen"/>
    </widget>
    <widget class="QMenu" name="menu_H">
     <property name="title">
@@ -96,12 +105,7 @@
   </action>
   <action name="actionOpenDir">
    <property name="text">
-    <string>打开文件夹(Import Directory)</string>
-   </property>
-  </action>
-  <action name="actionExport">
-   <property name="text">
-    <string>导出(S)</string>
+    <string>打开文件夹</string>
    </property>
   </action>
   <action name="action_Q">
@@ -111,12 +115,12 @@
   </action>
   <action name="action_Clear_Plot">
    <property name="text">
-    <string>清空画布 (Clear Plot)</string>
+    <string>清空画布</string>
    </property>
   </action>
   <action name="action_Remove_All_Files">
    <property name="text">
-    <string>移除所有文件 (Remove All Files)</string>
+    <string>移除所有CSV</string>
    </property>
   </action>
   <action name="action_Toggle_File_Tree">
@@ -124,7 +128,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>显示/隐藏 文件树 (Toggle File Tree)</string>
+    <string>显示/隐藏 文件树</string>
    </property>
   </action>
   <action name="action_Toggle_Data_Table">
@@ -132,7 +136,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>显示/隐藏 数据表  (Toggle Data Table)</string>
+    <string>显示/隐藏 数据表</string>
    </property>
   </action>
   <action name="action_Toggle_Properties">
@@ -140,12 +144,12 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>显示/隐藏 属性面板 (Toggle Properties)</string>
+    <string>显示/隐藏 属性面板</string>
    </property>
   </action>
   <action name="action_Documentation">
    <property name="text">
-    <string>使用说明 (Documentation)</string>
+    <string>使用说明</string>
    </property>
   </action>
   <action name="action_About">
@@ -155,7 +159,33 @@
   </action>
   <action name="action_Delete_CSV">
    <property name="text">
-    <string>删除(Delete CSV)</string>
+    <string>移除当前CSV</string>
+   </property>
+  </action>
+  <action name="action_Export_Plot">
+   <property name="text">
+    <string>导出当前图表</string>
+   </property>
+  </action>
+  <action name="action_Export_Xlsx">
+   <property name="text">
+    <string>导出当前记录</string>
+   </property>
+  </action>
+  <action name="action_Restore_Layout">
+   <property name="text">
+    <string>恢复默认布局</string>
+   </property>
+  </action>
+  <action name="action_FullScreen">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>全屏</string>
+   </property>
+   <property name="shortcut">
+    <string>F11</string>
    </property>
   </action>
  </widget>

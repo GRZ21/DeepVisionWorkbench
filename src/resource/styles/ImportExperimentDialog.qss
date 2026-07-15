@@ -1,0 +1,156 @@
+/* ImportExperimentDialog.qss */
+#ImportExperimentDialog {
+    background-color: #f5f7fa;
+    color: #263238;
+    font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
+    font-size: 13px;
+}
+
+#labelTitle {
+    color: #244f7d;
+    font-size: 18px;
+    font-weight: 700;
+    padding-bottom: 2px;
+}
+
+#labelHint {
+    color: #6b7280;
+    background-color: #eef5fc;
+    border: 1px solid #d6e5f5;
+    border-radius: 6px;
+    padding: 8px 10px;
+}
+
+#groupBasicInfo,
+#groupMetrics,
+#groupManualInfo {
+    background-color: #ffffff;
+    border: 1px solid #d4dce5;
+    border-radius: 7px;
+    margin-top: 10px;
+    padding-top: 8px;
+}
+
+#groupBasicInfo::title,
+#groupMetrics::title,
+#groupManualInfo::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 12px;
+    padding: 0 6px;
+    color: #2f5f91;
+    background-color: #ffffff;
+    font-weight: 600;
+}
+
+#groupBasicInfo QLabel,
+#groupMetrics QLabel,
+#groupManualInfo QLabel {
+    color: #4b5563;
+}
+
+QLineEdit,
+QSpinBox,
+QDoubleSpinBox,
+QPlainTextEdit {
+    background-color: #ffffff;
+    color: #263238;
+    border: 1px solid #cfd8e3;
+    border-radius: 5px;
+    padding: 4px 8px;
+    selection-background-color: #4c8ed9;
+    selection-color: #ffffff;
+}
+
+QLineEdit:hover,
+QSpinBox:hover,
+QDoubleSpinBox:hover,
+QPlainTextEdit:hover {
+    border-color: #9eb7d0;
+}
+
+QLineEdit:focus,
+QSpinBox:focus,
+QDoubleSpinBox:focus,
+QPlainTextEdit:focus {
+    border: 1px solid #4c8ed9;
+}
+
+QLineEdit[readOnly="true"],
+QSpinBox[readOnly="true"],
+QDoubleSpinBox[readOnly="true"] {
+    background-color: #f1f3f5;
+    color: #66717d;
+    border-color: #d9dee4;
+}
+
+QLineEdit,
+QSpinBox,
+QDoubleSpinBox {
+    min-height: 28px;
+}
+
+QPlainTextEdit {
+    padding: 7px 9px;
+}
+
+QSpinBox::up-button,
+QSpinBox::down-button,
+QDoubleSpinBox::up-button,
+QDoubleSpinBox::down-button {
+    width: 18px;
+    border: none;
+    background-color: transparent;
+}
+
+QSpinBox::up-button:hover,
+QSpinBox::down-button:hover,
+QDoubleSpinBox::up-button:hover,
+QDoubleSpinBox::down-button:hover {
+    background-color: #eef5fc;
+}
+
+QDialogButtonBox QPushButton {
+    min-width: 88px;
+    min-height: 32px;
+    background-color: #ffffff;
+    color: #263238;
+    border: 1px solid #c7d1dc;
+    border-radius: 5px;
+    padding: 4px 16px;
+    font-weight: 500;
+}
+
+QDialogButtonBox QPushButton:hover {
+    background-color: #eef5fc;
+    border-color: #7aa7d9;
+}
+
+QDialogButtonBox QPushButton:pressed {
+    background-color: #dceaf8;
+}
+
+QDialogButtonBox QPushButton[text="OK"],
+QDialogButtonBox QPushButton[text="确定"] {
+    background-color: #397dcc;
+    color: #ffffff;
+    border-color: #397dcc;
+}
+
+QDialogButtonBox QPushButton[text="OK"]:hover,
+QDialogButtonBox QPushButton[text="确定"]:hover {
+    background-color: #2f70bc;
+    border-color: #2f70bc;
+}
+
+QDialogButtonBox QPushButton[text="OK"]:pressed,
+QDialogButtonBox QPushButton[text="确定"]:pressed {
+    background-color: #285f9f;
+}
+
+QToolTip {
+    background-color: #263238;
+    color: #ffffff;
+    border: none;
+    padding: 5px;
+}

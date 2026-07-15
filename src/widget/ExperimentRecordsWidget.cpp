@@ -22,6 +22,13 @@ ExperimentRecordsWidget::ExperimentRecordsWidget(QWidget *parent) : QWidget(pare
                                                                     ui(new Ui::ExperimentRecordsWidget) {
     ui->setupUi(this);
 
+    QFile file(":/styles/ExperimentRecordsWidget.qss");
+    if (file.open(QFile::ReadOnly)) {
+        QString styleSheet = QLatin1String(file.readAll());
+        setStyleSheet(styleSheet);
+        file.close();
+    }
+
     ui->editDetailName->setReadOnly(false);
     ui->editDetailCsvPath->setReadOnly(true);
     ui->editBestEpoch->setReadOnly(true);
@@ -38,7 +45,18 @@ ExperimentRecordsWidget::ExperimentRecordsWidget(QWidget *parent) : QWidget(pare
     ui->tableExperimentRecords->setAlternatingRowColors(true);
     ui->tableExperimentRecords->horizontalHeader()->setStretchLastSection(true);
 
-    ui->splitter->setSizes(QList<int>({600,200}));
+    ui->splitter->setSizes(QList<int>({1000,300}));
+    ui->splitter->setHandleWidth(6);
+    ui->contentLayout->setContentsMargins(0, 0, 6, 0);
+    ui->splitter->setChildrenCollapsible(false);
+    ui->splitter->setCollapsible(0, false);
+    ui->splitter->setCollapsible(1, false);
+    ui->splitter->setStretchFactor(0, 1);
+    ui->splitter->setStretchFactor(1, 0);
+
+    ui->mainContentWidget->setMinimumWidth(850);
+    ui->rightDetailWidget->setMinimumWidth(280);
+    ui->rightDetailWidget->setMaximumWidth(280);
 
     QIcon icon(":/icons/sqlite.svg");
     ui->iconDatabaseLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
@@ -125,8 +143,15 @@ void ExperimentRecordsWidget::updateStatusBar() {
 // 导入当前实验
 void ExperimentRecordsWidget::on_btnImportCurrentExperiment_clicked() {
     if (!m_csvWidget) {
-        QMessageBox::warning(this, "提示", "无法获取 CSV 分析器");
-        return;
+        QMessageBox box(this);
+        box.setMinimumSize(320, 180);
+        box.setWindowTitle("提示");
+        box.setInformativeText("请先打开一个CSV文件");
+        box.setStandardButtons(QMessageBox::Ok);
+        QPushButton *okButton = qobject_cast<QPushButton *>(box.button(QMessageBox::Ok));
+        okButton->setText("确定");
+        if (box.exec()==QMessageBox::Ok)
+            return;
     }
     QMap<QString,QString> info = m_csvWidget->csvInfo();
     if (info.value("csvPath").isEmpty())    // 检查 CSV 路径是否为空
@@ -165,12 +190,22 @@ void ExperimentRecordsWidget::on_btnDeleteRecord_clicked() {
 
 // 提交本次修改
 void ExperimentRecordsWidget::on_btnSubmit_clicked() {
+    bool ok;
     QSqlRecord record = tableModel->record(selectionModel->currentIndex().row());
-    recordsStack.push(record);
     ExperimentRecord experimentRecord;
     experimentRecord.name = ui->editDetailName->text();
-    experimentRecord.params = ui->editParams->text().toDouble();
-    experimentRecord.GFLOPs = ui->editGFLOPs->text().toDouble();
+    experimentRecord.params = ui->editParams->text().toDouble(&ok);
+    if (!ok) {
+        QMessageBox::warning(this, "提示", "请输入有效的参数量");
+        ui->editParams->clear();
+        return;
+    }
+    experimentRecord.GFLOPs = ui->editGFLOPs->text().toDouble(&ok);
+    if (!ok) {
+        QMessageBox::warning(this, "提示", "请输入有效的计算量");
+        ui->editGFLOPs->clear();
+        return;
+    }
     experimentRecord.note = ui->plainNote->toPlainText();
 
     if (record.value("name").toString()==experimentRecord.name&&
@@ -179,12 +214,19 @@ void ExperimentRecordsWidget::on_btnSubmit_clicked() {
         record.value("note").toString()==experimentRecord.note) {
         recordsStack.pop();
         QMessageBox::warning(this, "提示", "没有进行任何修改");
+        return;
     }
-
+    recordsStack.push(record);
+    int id = record.value("id").toInt();
     DatabaseManager& db = DatabaseManager::instance();
-    db.updateExperiment(record.value("id").toInt(), experimentRecord);
+    db.updateExperiment(id, experimentRecord);
     tableModel->select();
-    ui->tableExperimentRecords->selectRow(selectionModel->currentIndex().row());
+    for (int i = 0;i<tableModel->rowCount();i++) {
+        if (tableModel->record(i).value("id").toInt() == id) {
+            ui->tableExperimentRecords->selectRow(i);
+            break;
+        }
+    }
 }
 
 void ExperimentRecordsWidget::on_btnRevert_clicked() {
@@ -212,38 +254,7 @@ void ExperimentRecordsWidget::on_btnRevert_clicked() {
 }
 
 void ExperimentRecordsWidget::on_btnExportRecord_clicked() {
-    QString fileName = QFileDialog::getSaveFileName(this, "保存文件", "experiment_records.xlsx", "Xlsx Files (*.xlsx);");
-    if (fileName.isEmpty())
-        return;
-
-    if (!fileName.endsWith(".xlsx", Qt::CaseInsensitive))
-        fileName += ".xlsx";
-
-    if (tableModel->rowCount() == 0) {
-        QMessageBox::information(this, "提示", "当前没有可导出的记录");
-        return;
-    }
-
-    QXlsx::Document xlsx;
-    QSqlRecord record = tableModel->record();
-    for (int i = 0;i<record.count();i++) {
-        if (record.value(i)=="ID")
-            continue;
-        xlsx.write(1, i+1, tableModel->headerData(i, Qt::Horizontal).toString());
-    }
-
-    for (int i = 0;i<tableModel->rowCount();i++) {
-        record = tableModel->record(i);
-        for (int j = 0;j<record.count();j++) {
-            if (j==0)
-                continue;
-            xlsx.write(i+2, j+1, record.value(j));
-        }
-    }
-    if (xlsx.saveAs(fileName))
-        QMessageBox::information(this, "提示", "保存成功");
-    else
-        QMessageBox::warning(this, "提示", "保存失败");
+   exportRecordAsXlsx();
 }
 
 
@@ -269,7 +280,7 @@ void ExperimentRecordsWidget::on_comboSortExperiment_currentTextChanged(const QS
 
 void ExperimentRecordsWidget::on_comboBoxSortType_currentTextChanged(const QString &text) {
     QString sortKey = ui->comboSortExperiment->currentText();
-    QString sortType = text;
+    const QString& sortType = text;
 
     if (sortKey.contains("95"))
         sortKey = "best_map5095";
@@ -319,6 +330,45 @@ void ExperimentRecordsWidget::displayRecordDetails(QSqlRecord record) {
     ui->editCreateTime->setText(record.value("created_time").toString());
     ui->editUpdateTime->setText(record.value("updated_time").toString());
     ui->plainNote->setPlainText(record.value("note").toString());
+}
+
+void ExperimentRecordsWidget::restoreLayout() {
+    ui->splitter->setSizes(QList<int>{1000,300});
+}
+
+void ExperimentRecordsWidget::exportRecordAsXlsx() {
+    QString fileName = QFileDialog::getSaveFileName(this, "保存文件", "experiment_records.xlsx", "Xlsx Files (*.xlsx);");
+    if (fileName.isEmpty())
+        return;
+
+    if (!fileName.endsWith(".xlsx", Qt::CaseInsensitive))
+        fileName += ".xlsx";
+
+    if (tableModel->rowCount() == 0) {
+        QMessageBox::information(this, "提示", "当前没有可导出的记录");
+        return;
+    }
+
+    QXlsx::Document xlsx;
+    QSqlRecord record = tableModel->record();
+    for (int i = 0;i<record.count();i++) {
+        if (record.value(i)=="ID")
+            continue;
+        xlsx.write(1, i+1, tableModel->headerData(i, Qt::Horizontal).toString());
+    }
+
+    for (int i = 0;i<tableModel->rowCount();i++) {
+        record = tableModel->record(i);
+        for (int j = 0;j<record.count();j++) {
+            if (j==0)
+                continue;
+            xlsx.write(i+2, j+1, record.value(j));
+        }
+    }
+    if (xlsx.saveAs(fileName))
+        QMessageBox::information(this, "提示", "保存成功");
+    else
+        QMessageBox::warning(this, "提示", "保存失败");
 }
 
 

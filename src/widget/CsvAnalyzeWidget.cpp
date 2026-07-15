@@ -19,6 +19,12 @@
 CsvAnalyzeWidget::CsvAnalyzeWidget(QWidget *parent) : QWidget(parent), ui(new Ui::CsvAnalyzeWidget) {
     ui->setupUi(this);
 
+    QFile file(":/styles/CsvAnalyzeWidget.qss");
+    if (file.open(QFile::ReadOnly)) {
+        QString styleSheet = QLatin1String(file.readAll());
+        this->setStyleSheet(styleSheet);
+    }
+
     tableModel = new QStandardItemModel(this);
     tableSelectionModel = new QItemSelectionModel(tableModel);
     ui->tableView->setModel(tableModel);
@@ -29,7 +35,16 @@ CsvAnalyzeWidget::CsvAnalyzeWidget(QWidget *parent) : QWidget(parent), ui(new Ui
 
     // 界面大小
     ui->Vsplitter->setSizes(QList<int>({700,300}));
-    ui->Hsplitter->setSizes(QList<int>({200,600,200}));
+    ui->Hsplitter->setChildrenCollapsible(false);
+
+    ui->treeWidget->setMinimumWidth(200);
+    ui->rightPanelWidget->setMinimumWidth(330);
+
+    ui->Hsplitter->setStretchFactor(0, 0); // 文件树
+    ui->Hsplitter->setStretchFactor(1, 1); // 图表区域优先伸缩
+    ui->Hsplitter->setStretchFactor(2, 0); // 属性面板保持稳定
+
+    ui->Hsplitter->setSizes({350, 950, 300});
 
     // 表头相关
     ui->treeWidget->header()->setSectionResizeMode(0,QHeaderView::ResizeToContents);
@@ -42,6 +57,11 @@ CsvAnalyzeWidget::CsvAnalyzeWidget(QWidget *parent) : QWidget(parent), ui(new Ui
     ui->customPlot->legend->setVisible(true);
     ui->customPlot->legend->setBrush(QBrush(QColor(255,255,255,150)));
     ui->customPlot->setInteractions(QCP::iRangeDrag|QCP::iRangeZoom|QCP::iSelectPlottables);
+
+    ui->scrollArea->setWidgetResizable(true);
+    ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    ui->scrollArea->setFrameShape(QFrame::NoFrame);
 
     connect(ui->treeWidget,&QTreeWidget::itemClicked,this,&CsvAnalyzeWidget::onTreeItemClicked);
     connect(ui->treeWidget,&QTreeWidget::itemDoubleClicked,this,&CsvAnalyzeWidget::onTreeItemDoubleClicked);
@@ -123,9 +143,10 @@ void CsvAnalyzeWidget::initTree() {
     ui->treeWidget->addTopLevelItem(root);
     ui->treeWidget->setCurrentItem(root);
     root->setExpanded(true);
-    // root->setCheckState(CsvAnalyzeWidget::colItem,Qt::Checked);
     ui->treeWidget->header()->setSectionResizeMode(0, QHeaderView::Stretch);
-    ui->treeWidget->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+    ui->treeWidget->header()->setSectionResizeMode(1, QHeaderView::Fixed);
+    ui->treeWidget->header()->resizeSection(1, 120);
+    ui->treeWidget->header()->setStretchLastSection(false);
 }
 
 
@@ -136,7 +157,7 @@ QTreeWidgetItem* CsvAnalyzeWidget::addCSVItem(QTreeWidgetItem *parItem, QString 
 
     QTreeWidgetItem* item = new QTreeWidgetItem(CsvAnalyzeWidget::itCSVItem);
     item->setText(CsvAnalyzeWidget::colItem,lastFileName);
-    item->setText(CsvAnalyzeWidget::colDate,fileDate.toString());
+    // item->setText(CsvAnalyzeWidget::colDate,fileDate.toString("yyyy-MM-dd HH:mm"));
     item->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
     // item->setCheckState(CsvAnalyzeWidget::colItem,Qt::Checked);
 
@@ -150,6 +171,7 @@ void CsvAnalyzeWidget::addParmItem(QTreeWidgetItem *parItem, QString CSVHeaderPa
     QTreeWidgetItem* item = new QTreeWidgetItem(CsvAnalyzeWidget::itParamItem);
     QString trimmedParam = CSVHeaderParam.trimmed();
     item->setText(CsvAnalyzeWidget::colItem,trimmedParam);
+    item->setFirstColumnSpanned(true);
     item->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled|Qt::ItemIsUserCheckable|Qt::ItemIsAutoTristate);
     item->setCheckState(CsvAnalyzeWidget::colItem,Qt::Unchecked);
 
@@ -948,6 +970,15 @@ void CsvAnalyzeWidget::exportChart() {
         ui->customPlot->savePdf(fileName,width, height);
 }
 
+void CsvAnalyzeWidget::restoreLayout() {
+    ui->tableView->setVisible(true);
+    ui->treeWidget->setVisible(true);
+    ui->rightPanelWidget->setVisible(true);
+
+    ui->Hsplitter->setSizes(QList<int>{350, 950, 300});
+    ui->Vsplitter->setSizes(QList<int>{700, 300});
+}
+
 void CsvAnalyzeWidget::onSpinScatterSizeChanged(int size) {
     if (curGraph== nullptr)
         return;
@@ -998,14 +1029,14 @@ QMap<QString,QString>CsvAnalyzeWidget::csvInfo() {
     else if (currentItem->type()== CsvAnalyzeWidget::itCSVItem)
         selectItem = currentItem;
     else {
-        QMessageBox::warning(this, "Warning", "No CSV file selected");
+        QMessageBox::warning(this, "Warning", "没有选择 CSV 文件");
         return info;
     }
 
     csvPath = selectItem->data(CsvAnalyzeWidget::colItem, Qt::UserRole).toString();
 
     if (csvPath.isEmpty() || !csvCache.contains(csvPath)) {
-        QMessageBox::warning(this, "提示", "当前 CSV 数据不存在");
+        QMessageBox::warning(this, "提示", "CSV文件不存在");
         return info;
     }
 
@@ -1013,7 +1044,7 @@ QMap<QString,QString>CsvAnalyzeWidget::csvInfo() {
     QStringList data = csvCache[csvPath];
 
     if (data.size()<2) {
-        QMessageBox::warning(this,"提示","No data in CSV file");
+        QMessageBox::warning(this,"提示","CSV文件中没有数据");
         return info;
     }
 

@@ -58,6 +58,10 @@ private:
 
     void displayRecordDetails(QSqlRecord record);
 
+public slots:
+    void restoreLayout();
+    void exportRecordAsXlsx();
+
 private:
     Ui::ExperimentRecordsWidget *ui;
 };

@@ -24,7 +24,7 @@ namespace Ui {
 QT_END_NAMESPACE
 
 class CsvAnalyzeWidget;
-class ExperimentLibraryWidget;
+class ExperimentRecordsWidget;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT

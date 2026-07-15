@@ -18,8 +18,8 @@ QString DatabaseManager::initDatabase() {
     QString dirPath = QDir::currentPath();
     QStringList filters;
     filters << "*.db3"<<"*.db";
-    bool existingDB = QDir(dirPath).entryList(filters).isEmpty();
-    if (existingDB) {
+    bool noExistingDB = QDir(dirPath).entryList(filters).isEmpty();
+    if (!noExistingDB) {
         dbName = QFileDialog::getOpenFileName(nullptr, "Open Database", "", "SQLite Database (*.db3 *.db)");
     }else {
         db = QSqlDatabase::addDatabase("QSQLITE");
@@ -148,14 +148,3 @@ int DatabaseManager::experimentCount(int currentPage, int pageSize) {
     return totalPages;
 }
 
-bool DatabaseManager::sortExperiment(const QString& sortKey, const QString& sortType) {
-    QSqlQuery query(db);
-    query.prepare("SELECT * FROM experiments ORDER BY :key :type");
-    query.bindValue(":type", sortType);
-    query.bindValue(":key", sortKey);
-    if (!query.exec()) {
-        qDebug() << "Failed to sort experiments:" << query.lastError().text();
-        return false;
-    }
-    return true;
-}

@@ -9,10 +9,16 @@
 #include "CsvAnalyzeWidget.h"
 #include "ui_ImportExperimentDialog.h"
 #include "database/DatabaseManager.h"
-
+#include <QFile>
 
 ImportExperimentDialog::ImportExperimentDialog(CsvAnalyzeWidget *csvWidget,QWidget *parent) : QDialog(parent), ui(new Ui::ImportExperimentDialog) {
     ui->setupUi(this);
+
+    QFile file(":/styles/ImportExperimentDialog.qss");
+    if (file.open(QFile::ReadOnly)) {
+        QString styleSheet = QLatin1String(file.readAll());
+        this->setStyleSheet(styleSheet);
+    }
 
     QMap<QString, QString> expRecord = csvWidget->csvInfo();
     ui->editExperimentName->setText(expRecord.value("name"));

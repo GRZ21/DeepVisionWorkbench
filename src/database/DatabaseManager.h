@@ -32,12 +32,11 @@ public:
 
     bool openDatabase();
 
-    bool saveExperiment(const ExperimentRecord& record);
     bool deleteExperiment(int id);
     bool insertExperiment(const ExperimentRecord& record);
     bool updateExperiment(int id, const ExperimentRecord& record);
     int experimentCount(int currentPage, int pageSize);
-    bool sortExperiment(const QString& sortKey,const QString& sortType);
+
 private:
     DatabaseManager() = default;
 
