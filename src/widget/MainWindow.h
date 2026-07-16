@@ -35,7 +35,7 @@ public:
     ~MainWindow() override;
 
 private slots:
-    void onActionGuide();
+    static void onActionGuide();
     void onActionAbout();
 private:
     Ui::MainWindow *ui;

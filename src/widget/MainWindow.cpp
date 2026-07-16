@@ -83,15 +83,14 @@ MainWindow::~MainWindow() {
 
 
 void MainWindow::onActionGuide() {
-    QDesktopServices::openUrl(QUrl("https://github.com/GRZ21/CSVResultAnalyzer"));
+    QDesktopServices::openUrl(QUrl("https://github.com/GRZ21/DeepVisionWorkbench"));
 }
 
 void MainWindow::onActionAbout() {
-    QString Text = "<h3>CSV Result Analyzer</h3>"
+    QString Text = "<h3>DeepVision Workbench</h3>"
                 "<p><b>开发者：</b>GRZ</p>"
                 "<p><b>联系邮箱：</b>grzgrzgrz21@foxmail.com</p>"
                 "<p><b>版本：</b>v2.0beta</p>"
-                "<p>本软件专为深度学习（如YOLO和RT-DETR系列）训练日志可视化设计。</p>"
                 "<hr>"
                 "<p>基于 Qt(C++) 构建。</p>"
                 "<p><b>开源协议：</b>本项目遵循 <a href='https://opensource.org/licenses/MIT'>MIT License</a>。</p>"
