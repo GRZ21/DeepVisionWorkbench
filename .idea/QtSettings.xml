@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="QtSettings">
-    <option name="myCurrentProfile" value="Release" />
+    <option name="myCurrentProfile" value="Release-MSVC" />
     <option name="mySettingsPerProfile">
       <map>
-        <entry key="Debug">
+        <entry key="Debug-MSVC">
+          <value>
+            <PerProfileState>
+              <option name="myQmlPath" value="$PROJECT_DIR$/../../../Qt/6.8.2/msvc2022_64/qml" />
+              <option name="myQtBinPath" value="$PROJECT_DIR$/../../../Qt/6.8.2/msvc2022_64/bin" />
+            </PerProfileState>
+          </value>
+        </entry>
+        <entry key="Debug-MinGW">
           <value>
             <PerProfileState>
               <option name="myQmlPath" value="$PROJECT_DIR$/../../../Qt/6.8.2/mingw_64/qml" />
@@ -12,7 +20,15 @@
             </PerProfileState>
           </value>
         </entry>
-        <entry key="Release">
+        <entry key="Release-MSVC">
+          <value>
+            <PerProfileState>
+              <option name="myQmlPath" value="$PROJECT_DIR$/../../../Qt/6.8.2/msvc2022_64/qml" />
+              <option name="myQtBinPath" value="$PROJECT_DIR$/../../../Qt/6.8.2/msvc2022_64/bin" />
+            </PerProfileState>
+          </value>
+        </entry>
+        <entry key="Release-MinGW">
           <value>
             <PerProfileState>
               <option name="myQmlPath" value="$PROJECT_DIR$/../../../Qt/6.8.2/mingw_64/qml" />

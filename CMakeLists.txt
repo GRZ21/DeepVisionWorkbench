@@ -115,7 +115,7 @@ target_include_directories(${APP_NAME} PRIVATE
 
 # ---------------- 编译选项 ----------------
 target_compile_options(${APP_NAME} PRIVATE
-        $<$<CXX_COMPILER_ID:MSVC>:/W4 /permissive->
+        $<$<CXX_COMPILER_ID:MSVC>:/W4 /permissive- /utf-8>
         $<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:
         -Wall -Wextra -Wpedantic
         >
