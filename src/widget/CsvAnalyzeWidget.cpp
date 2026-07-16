@@ -47,8 +47,7 @@ CsvAnalyzeWidget::CsvAnalyzeWidget(QWidget *parent) : QWidget(parent), ui(new Ui
     ui->Hsplitter->setSizes({350, 950, 300});
 
     // 表头相关
-    ui->treeWidget->header()->setSectionResizeMode(0,QHeaderView::ResizeToContents);
-    ui->treeWidget->header()->setSectionResizeMode(1,QHeaderView::ResizeToContents);
+    ui->treeWidget->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
     // 自定义右键策略
     ui->treeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
